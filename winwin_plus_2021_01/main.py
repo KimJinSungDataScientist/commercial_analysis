@@ -67,7 +67,7 @@ for i in range(0, rowsLen):
 
         columnList.append(columns[j].text)
     rowList.append(columnList)
-    columnList = []  # 다음 row의 값을 넣기 위해 비워준다. (매우 중요!!)
+    columnList = []
 
 result = pd.DataFrame(rowList, columns=nameList)
 print(result.head())
