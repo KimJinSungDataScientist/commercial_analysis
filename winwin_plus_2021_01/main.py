@@ -4,7 +4,7 @@ from lxml import html
 from urllib.request import Request, urlopen
 from urllib.parse import urlencode, quote_plus, unquote
 
-
+# json
 xmlUrl = 'http://apis.data.go.kr/B553077/api/open/sdsc/'
 My_API_Key = unquote('HkrPPG6in4atPJOdIYi8%2FXi88%2BGIwbJIHxL5RCca%2FL43BHV43cGNDFGIWH7P72zO06mGVxrLfpIQg6cpBH8Iiw%3D%3D')
 
