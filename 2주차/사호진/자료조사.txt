@@ -1,0 +1,46 @@
+API 알기쉽게 정리
+http://blog.wishket.com/api%EB%9E%80-%EC%89%BD%EA%B2%8C-%EC%84%A4%EB%AA%85-%EA%B7%B8%EB%A6%B0%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8/
+https://www.redhat.com/ko/topics/api/what-are-application-programming-interfaces
+
+API 사용법(공공데이터포털)
+https://www.redhat.com/ko/topics/api/what-are-application-programming-interfaces
+https://shinsunyoung.tistory.com/36
+
+
+고객요구사항?
+주변 상권 분석, 지역 분석
+돈을 벌 만 한 업종인가
+자신의 현재 가지고 있는 돈에 따라 달라짐
+업종의 종류 선택
+남들이 안하는 것..?
+자신의 가진 능력, 자격증, 경험, 경력
+- 자격증 필요없어도 되는것만!!
+
+
+
+
+사용할것_정보
+서울특별시 우리마을가게 상권분석 서비스
+https://golmok.seoul.go.kr/fixedAreaAnalysis.do
+
+네이버지도 API
+https://www.ncloud.com/product/applicationService/maps
+카카오맵 API
+https://apis.map.kakao.com/
+
+산 계곡, 바다 등의 자연지형
+학교, 공원, 유적지, 대학가, 고층 빌딩(직장인 유동 파악) 
+특정지역의 특정 업종들 수 파악
+핫한 메인스트리트 or 장소와의 거리
+자신의 경력에 따라 다름
+설문조사?
+
+각지역의 특징 우선 파악!
+건물 임대료 파악
+
+
+가져올것
+: 산, 하천, 강, 바다, 학교, 대학가, 큰 병원, 큰 백화점, 시장, 지하철역, 기차역, 터미널, 공항
+
+
+
