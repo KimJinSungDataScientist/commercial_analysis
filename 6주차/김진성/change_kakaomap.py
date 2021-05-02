@@ -129,9 +129,10 @@ for i in top10_place:
 #
 #
 #
-    data_frame = pd.DataFrame(results, columns=['name', 'address',"lat","long"])
-    print(data_frame)
 
+    data_frame = pd.DataFrame(results, columns=['name', 'address',"lat","long"])
+    # print(data_frame)
+    data_frame.to_csv('DB.csv',mode='a', encoding="utf-8-sig")
 
 
     for a in data_frame.index:
