@@ -6,7 +6,10 @@ import requests
 from urllib.parse import urlparse
 import pandas as pd
 import folium
+from Hyun import main_func
 from folium.plugins import MarkerCluster
+
+key_commer = 'bG%2BZ%2BmDdiTVy%2Faq2OLF%2FKCockUZQnuHoXbUTjrFJYWbe5ZtQ7qRAJgXoFYaG7YY7N7%2BLkPJhevA1Wy1wdeH%2FIw%3D%3D'
 
 def address_to_latitude(address):
     global lat
@@ -29,9 +32,9 @@ def address_to_longtitude(address):
     return long
 hope_upjong = '치킨'
 local_name = '서울시 성산동 '
-top10_place = [hope_upjong,'축구장','택배','미용실','고등학교','만화방','낚시','편의점','카페','한식집','병원']
+lists = main_func(key_commer,37.577472  ,126.967881)
+top10_place = [hope_upjong] +lists
 top10_color = ['red','red','blue','green','purple','orange','beige','pink','gray','cadetblue','darkpurple']
-# find =  input('검색할 정보를 입력하세요 : ')
 
 
 time.sleep(10)
@@ -72,10 +75,6 @@ for i in top10_place:
             longtitude = address_to_longtitude(address)
             results.append((name, address, latitude, longtitude))
 
-# print(results)
-
-
-
 
     data_frame = pd.DataFrame(results, columns=['name', 'address',"lat","long"])
     # print(data_frame)
@@ -95,8 +94,6 @@ for i in top10_place:
                           popup = data_frame.loc[a,"name"],
                           icon=folium.Icon(color=top10_color[top10_place.index(i)], icon='info-sign')
                           ).add_to(map)
-
-# print(map)
 
 from branca.element import Template, MacroElement
 

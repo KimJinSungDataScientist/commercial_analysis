@@ -1,8 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans\
+from sklearn.cluster import KMeans
+import folium
 
 df = pd.read_csv('DB.csv')
+
 
 def kmeans(df):
     save_index = df[df['lat'] == 'lat'].index.to_list()
@@ -29,55 +31,68 @@ def kmeans(df):
 
     lati = []
     for i in latitude:
-        lati.append((float(i) - 37) * 100)
+        lati.append(float(i))
 
     long = []
     for i in longitude:
-        long.append((float(i) - 126) * 100)
-
-    # plt.figure(figsize=(10, 10))
-    # plt.scatter(long, lati)
+        long.append(float(i))
 
     loc_df = pd.DataFrame()
     loc_df['longitude'] = long
     loc_df['latitude'] = lati
-
     # 군집화 5부터 시작해서 약국 위도가 군집안에 없을때까지 무한 반복
 
     count = 5
-    perpect = False
+    perpect = True
+    chk_kmeans = df1['lat'].unique()
 
-    while (perpect == False):
+    while (perpect):
         count += 1
-
+        # if (count > 100):
+        #     count = 5
+        print(count)
         kmeans = KMeans(n_clusters=count, random_state=777).fit(loc_df)
         loc_df['label'] = kmeans.labels_
 
         for i in range(count):
             chk = 0
             for j in loc_df[loc_df['label'] == i]['latitude']:
-                if str(j / 100 + 37) in df1['lat'].unique():
+                if str(j) in chk_kmeans:
                     break
                 else:
                     chk += 1
                 if chk == len(loc_df[loc_df['label'] == i]):
-                    if chk < 20:  # 10개보다 작은 경우 외곽 지역에서 작은 군집이 추출되는거라
-                        # 우선 무지성으로 10개 미만 군집은 제외했음
-                        break
-                    perpect = True
+                    # if chk < 10:  # 10개보다 작은 경우 외곽 지역에서 작은 군집이 추출되는거라
+                    #     break
+                    perpect = False
                     print("solution label : ", i)
                     solution_label = i
-            if perpect == True:
+                    break
+            if perpect == False:
                 break
 
-    plt.figure(figsize=(15, 15))
+    temp_long = loc_df[loc_df['label'] == solution_label]['longitude'].mean()
+    temp_lati = loc_df[loc_df['label'] == solution_label]['latitude'].mean()
 
-    for label in loc_df.label:
-        if label == solution_label:
-            plt.plot(loc_df.longitude[loc_df.label == label], loc_df.latitude[loc_df.label == label], markersize=20,
-                     marker='.')
-        else:
-            plt.plot(loc_df.longitude[loc_df.label == label], loc_df.latitude[loc_df.label == label], '.')
-    plt.show()
+    map = folium.Map(location=[temp_lati, temp_long], zoom_start=16)
+    for i in loc_df[loc_df['label'] == solution_label].index:
+        folium.CircleMarker(location=[loc_df[loc_df['label'] == solution_label].loc[i, 'latitude'],
+                                      loc_df[loc_df['label'] == solution_label].loc[i, 'longitude']],
+                            color='#00ff99',
+                            fill_color='#00ff99',
+                            tooltip=(loc_df[loc_df['label'] == solution_label].loc[i, 'latitude'],
+                                     loc_df[loc_df['label'] == solution_label].loc[i, 'longitude']),
+                            radius=40
+                            ).add_to(map)
+
+    for i in df1.index:
+        folium.CircleMarker(location=[df1.loc[i, 'lat'], df1.loc[i, 'long']],
+                            color='#808080',
+                            fill_color='#808080',
+                            tooltip=(df1.loc[i, 'lat'], df1.loc[i, 'long']),
+                            radius=40
+                            ).add_to(map)
+
+    map.save('solution.html')
 
 kmeans(df)
